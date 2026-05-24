@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Raghuraman Srinivasan - Full Stack Developer (.NET Core & React.js) based in Chennai, specializing in scalable enterprise systems and secure microservices.">
+    <title>Raghuraman Srinivasan | Full Stack Engineer</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-base: #0a0f1c;
+            --bg-surface: #111827;
+            --bg-surface-hover: #1f2937;
+            --accent-primary: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.15);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Scroll Animations Base */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+            transition-duration: 0.8s;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(10, 15, 28, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 1.2rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-size: 1.25rem; font-weight: 600;
+            color: var(--accent-primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem; font-weight: 500;
+            transition: var(--transition);
+        }
+        .nav-links a:hover { color: var(--accent-primary); }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-family: var(--font-mono); font-size: 0.9rem; font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: var(--accent-primary); color: #000;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--accent-primary);
+            color: var(--accent-primary);
+        }
+        .btn-outline:hover {
+            background: var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 0 10%;
+            position: relative;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: -10%; right: -5%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .mono-intro {
+            font-family: var(--font-mono); color: var(--accent-primary);
+            margin-bottom: 1rem; font-size: 1rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800; line-height: 1.1; margin-bottom: 0.5rem;
+            color: #e2e8f0;
+        }
+        .hero h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700; line-height: 1.1; margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+        .hero p {
+            max-width: 600px; font-size: 1.1rem; color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+        }
+        
+        .type-cursor {
+            border-right: 3px solid var(--accent-primary);
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink { 50% { border-color: transparent; } }
+
+        /* Sections */
+        section { padding: 100px 10%; }
+        .section-header {
+            display: flex; align-items: center;
+            margin-bottom: 3rem; white-space: nowrap;
+        }
+        .section-header h2 {
+            font-size: 2rem; font-weight: 700; color: #e2e8f0;
+        }
+        .section-header::after {
+            content: ''; display: block;
+            height: 1px; width: 100%;
+            background: rgba(255,255,255,0.1); margin-left: 20px;
+        }
+
+        /* Skills Matrix */
+        .skills-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;
+        }
+        .skill-card {
+            background: var(--bg-surface);
+            padding: 2rem; border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+        }
+        .skill-card:hover {
+            transform: translateY(-5px); border-color: var(--accent-primary);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
+        .skill-card i {
+            font-size: 2.5rem; color: var(--accent-primary); margin-bottom: 1.5rem;
+        }
+        .skill-card h3 { font-size: 1.25rem; margin-bottom: 1rem; color: #e2e8f0; }
+        
+        .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tag {
+            font-family: var(--font-mono); font-size: 0.8rem;
+            color: var(--accent-primary); background: var(--accent-glow);
+            padding: 0.25rem 0.75rem; border-radius: 4px;
+        }
+
+        /* Experience Timeline */
+        .experience-card {
+            background: var(--bg-surface);
+            border-left: 2px solid var(--accent-primary);
+            padding: 2rem; border-radius: 0 8px 8px 0;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+        .experience-card:hover { background: var(--bg-surface-hover); }
+        .exp-header {
+            display: flex; justify-content: space-between; align-items: baseline;
+            margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;
+        }
+        .exp-header h3 { font-size: 1.3rem; color: #e2e8f0; }
+        .exp-date { font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-secondary); }
+        
+        ul.task-list { list-style: none; }
+        ul.task-list li {
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.75rem;
+            color: var(--text-secondary);
+        }
+        ul.task-list li::before {
+            content: "▹"; position: absolute; left: 0; color: var(--accent-primary);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 4rem;
+        }
+        .socials { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem; }
+        .socials a {
+            color: var(--text-secondary); font-size: 1.5rem; transition: var(--transition);
+        }
+        .socials a:hover { color: var(--accent-primary); transform: translateY(-3px); }
+        .footer-text { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary); }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem 5%; }
+            .nav-links { display: none; }
+            section { padding: 80px 5%; }
+            .hero { padding: 0 5%; }
+            .btn-group { flex-direction: column; }
+            .btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo" aria-label="Home">&lt;RS /&gt;</a>
+        <div class="nav-links">
+            <a href="#about">01. About</a>
+            <a href="#expertise">02. Expertise</a>
+            <a href="#experience">03. Experience</a>
+            <a href="#work">04. Work</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero" id="about">
+            <div class="reveal">
+                <p class="mono-intro">Hi, my name is</p>
+                <h1>Raghuraman Srinivasan.</h1>
+                <h2>I engineer <span id="typewriter" class="type-cursor"></span></h2>
+                <p>
+                    I'm a Full Stack Developer based in Chennai specializing in robust <strong>.NET Core</strong> backend architectures and highly interactive <strong>React.js</strong> interfaces. I bridge the gap between deep technical engineering and product-level analysis to maximize enterprise scalability.
+                </p>
+                <div class="btn-group" style="display: flex; gap: 1rem;">
+                    <a href="#work" class="btn btn-primary">
+                        <i class="fa-solid fa-folder-open"></i> View Projects
+                    </a>
+                    <a href="https://drive.google.com/file/d/1gA-18t70zVypzK_q1zGa8J_kFoXGp0Rc/view?usp=sharing" target="_blank" class="btn btn-outline" rel="noopener noreferrer">
+                        <i class="fa-solid fa-file-pdf"></i> Resume
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="expertise">
+            <div class="section-header reveal">
+                <h2>Technical Expertise</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card reveal">
+                    <i class="fa-brands fa-microsoft"></i>
+                    <h3>Backend & Architecture</h3>
+                    <div class="tags">
+                        <span class="tag">C#</span>
+                        <span class="tag">.NET Core</span>
+                        <span class="tag">Microservices</span>
+                        <span class="tag">RESTful APIs</span>
+                        <span class="tag">DDD & CQRS</span>
+                    </div>
+                </div>
+                <div class="skill-card reveal">
+                    <i class="fa-brands fa-react"></i>
+                    <h3>Frontend Engineering</h3>
+                    <div class="tags">
+                        <span class="tag">React.js</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">GraphQL</span>
+                    </div>
+                </div>
+                <div class="skill-card reveal">
+                    <i class="fa-solid fa-server"></i>
+                    <h3>Data & Cloud Infrastructure</h3>
+                    <div class="tags">
+                        <span class="tag">Microsoft Azure</span>
+                        <span class="tag">SQL Server (MSSQL)</span>
+                        <span class="tag">Redis</span>
+                        <span class="tag">Query Optimization</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <div class="section-header reveal">
+                <h2>Where I've Worked</h2>
+            </div>
+            <div class="experience-card reveal">
+                <div class="exp-header">
+                    <h3>Full Stack Developer <span style="color: var(--accent-primary);">@ Karomi Technologies</span></h3>
+                    <span class="exp-date">Oct 2023 - Present | Chennai, IN</span>
+                </div>
+                <ul class="task-list">
+                    <li>Led the end-to-end development lifecycle including requirement analysis, system design, development, testing, deployment, and monitoring.</li>
+                    <li>Managed a critical technical migration project from legacy V5/V6 architecture to V7, integrating robust Multi-Factor Authentication (MFA) logic.</li>
+                    <li>Diagnosed and resolved critical production application bugs, driving a 94% overall system performance optimization.</li>
+                    <li>Spearheaded a mentorship initiative for three junior developers, conducting peer code reviews that decreased bug density by 40%.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="work">
+            <div class="section-header reveal">
+                <h2>Featured Projects</h2>
+            </div>
+            <div class="experience-card reveal">
+                <div class="exp-header">
+                    <h3>AMS Platform Enhancements & Analytics Upgrades</h3>
+                </div>
+                <ul class="task-list">
+                    <li><strong>Secure Infrastructure:</strong> Designed engineered secure asset transfer pipelines from on-premises servers to cloud storage with strict encryption, ensuring 100% compliance with pharma data regulations.</li>
+                    <li><strong>Data Optimization:</strong> Enhanced report loading and compilation speeds by 2.5x through advanced SQL query optimization and efficient server-side caching.</li>
+                    <li><strong>Feature Delivery:</strong> Implemented and deployed an "Approved Artwork Generator" and a "Viewer Submit" component, boosting active user engagement by 88%.</li>
+                    <li><strong>Product Analytics:</strong> Partnered directly with product managers to map KPIs, building 6+ custom reports that reduced manual data collation time by 80%.</li>
+                </ul>
+                <div class="tags" style="margin-top: 1.5rem;">
+                    <span class="tag">.NET Core</span>
+                    <span class="tag">React.js</span>
+                    <span class="tag">SQL (MSSQL)</span>
+                    <span class="tag">Azure</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="socials">
+            <a href="https://linkedin.com/in/raghuraman20" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://leetcode.com/raghusrini19" target="_blank" aria-label="LeetCode"><i class="fa-solid fa-code"></i></a>
+            <a href="mailto:raghusrini19@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+        <p class="footer-text">Built with precision by Raghuraman Srinivasan &copy; 2026</p>
+    </footer>
+
+    <script>
+        // 1. Typewriter Effect
+        const phrases = ["scalable enterprise systems.", "secure microservices.", "modern React interfaces.", "optimized SQL pipelines."];
+        let i = 0; let j = 0; let currentPhrase = []; let isDeleting = false; let isEnd = false;
+        const typewriterSpan = document.getElementById('typewriter');
+
+        function loop() {
+            isEnd = false;
+            typewriterSpan.innerHTML = currentPhrase.join('');
+
+            if (i < phrases.length) {
+                if (!isDeleting && j <= phrases[i].length) {
+                    currentPhrase.push(phrases[i][j]);
+                    j++;
+                    typewriterSpan.innerHTML = currentPhrase.join('');
+                }
+                if(isDeleting && j <= phrases[i].length) {
+                    currentPhrase.pop(phrases[i][j]);
+                    j--;
+                    typewriterSpan.innerHTML = currentPhrase.join('');
+                }
+                if (j == phrases[i].length) {
+                    isEnd = true;
+                    isDeleting = true;
+                }
+                if (isDeleting && j === 0) {
+                    currentPhrase = [];
+                    isDeleting = false;
+                    i++;
+                    if (i == phrases.length) { i = 0; }
+                }
+            }
+            const speedUp = Math.random() * (80 - 50) + 50;
+            const normalSpeed = Math.random() * (150 - 100) + 100;
+            const time = isEnd ? 2000 : isDeleting ? speedUp : normalSpeed;
+            setTimeout(loop, time);
+        }
+        setTimeout(loop, 500);
+
+        // 2. Scroll Reveal Animation using Intersection Observer
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); // Stop observing once revealed
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => revealOnScroll.observe(el));
+    </script>
+</body>
+</html>
